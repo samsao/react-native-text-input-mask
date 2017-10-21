@@ -1,6 +1,6 @@
 {
-  "name": "react-native-text-input-mask",
-  "version": "0.3.2",
+  "name": "samsao-react-native-text-input-mask",
+  "version": "1.0.0",
   "description": "Text input mask for React Native on iOS and Android.",
   "main": "index.js",
   "scripts": {
@@ -8,19 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ivanzotov/react-native-text-input-mask"
+    "url": "https://github.com/samsao/react-native-text-input-mask"
   },
-  "keywords": [
-    "react",
-    "native",
-    "mask",
-    "text input",
-    "android",
-    "ios"
-  ],
-  "author": "Ivan Zotov",
-  "bugs": {
-    "url": "https://github.com/ivanzotov/react-native-text-input-mask/issues"
-  },
-  "homepage": "http://ivanzotov.com"
+  "keywords": ["react", "native", "mask", "text input", "android", "ios"],
+  "author": "Samsao Development Inc."
 }
