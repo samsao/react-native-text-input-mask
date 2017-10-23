@@ -35,6 +35,9 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
     public void mask(final String maskString,
                      final String inputValue,
                      final Callback onResult) {
+      if (maskString == null){
+        return;
+      }
       final Mask mask = new Mask(maskString);
       final String input = inputValue;
       final Mask.Result result = mask.apply(
@@ -52,6 +55,9 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
     public void unmask(final String maskString,
                      final String inputValue,
                      final Callback onResult) {
+      if (maskString == null){
+        return;
+      }
       final Mask mask = new Mask(maskString);
       final String input = inputValue;
       final Mask.Result result = mask.apply(

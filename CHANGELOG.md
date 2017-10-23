@@ -1,3 +1,7 @@
+## 1.0.3 (October 23, 2017)
+
+- Added a null check for the mask.
+
 ## 1.0.2 (October 23, 2017)
 
 - Fixed flickering in Android.
