@@ -1,3 +1,7 @@
+## 1.0.4 (October 23, 2017)
+
+- Fixed a bug where the text wouldn't be passed if there is no mask.
+
 ## 1.0.3 (October 23, 2017)
 
 - Added a null check for the mask.
