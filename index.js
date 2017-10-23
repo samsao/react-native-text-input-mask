@@ -13,6 +13,12 @@ export default class TextInputMask extends Component {
 
   masked = false;
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value != nextProps.value) {
+      mask(this.props.mask, '' + nextProps.value, text => this.input.setNativeProps({ text }));
+    }
+  }
+
   componentDidMount() {
     if (this.props.maskDefaultValue && this.props.mask && this.props.value) {
       mask(this.props.mask, '' + this.props.value, text => this.input.setNativeProps({ text }));
@@ -28,8 +34,8 @@ export default class TextInputMask extends Component {
     return (
       <TextInput
         {...this.props}
+        value={undefined}
         ref={ref => (this.input = ref)}
-        {...this.props}
         onChangeText={masked => {
           const _unmasked = unmask(this.props.mask, masked, unmasked => {
             this.props.onChangeText && this.props.onChangeText(masked, unmasked);
