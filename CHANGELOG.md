@@ -1,3 +1,7 @@
+## 1.0.5 (October 29, 2017)
+
+- Changed setting in InputMask framework (Always Embed Swift Standard Libraries -> from `true` to `false`)
+
 ## 1.0.4 (October 23, 2017)
 
 - Fixed a bug where the text wouldn't be passed if there is no mask.
