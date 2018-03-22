@@ -22,7 +22,7 @@ open class RNMask : NSObject {
 
         return result.formattedText.string
     }
-
+    
     public static func unmaskValue(text: String, format: String) -> String {
         let mask : Mask = try! Mask.getOrCreate(withFormat: format)
 

@@ -2,6 +2,7 @@ package com.RNTextInputMask;
 
 import android.app.Activity;
 import android.widget.EditText;
+import android.text.TextWatcher;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
@@ -32,57 +33,82 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void mask(final String maskString, final String inputValue, final Callback onResult) {
+    public void mask(final String maskString,
+                     final String inputValue,
+                     final Callback onResult) {
         if (maskString == null) {
             onResult.invoke(inputValue);
             return;
         }
-        final Mask mask = new Mask(maskString);
-        final String input = inputValue;
-        final Mask.Result result = mask.apply(new CaretString(input, input.length()), true);
-        final String output = result.getFormattedText().getString();
-        onResult.invoke(output);
+      final Mask mask = new Mask(maskString);
+      final String input = inputValue;
+      final Mask.Result result = mask.apply(
+          new CaretString(
+              input,
+              input.length()
+          ),
+          true
+      );
+      final String output = result.getFormattedText().getString();
+      onResult.invoke(output);
     }
 
     @ReactMethod
-    public void unmask(final String maskString, final String inputValue, final Callback onResult) {
+    public void unmask(final String maskString,
+                     final String inputValue,
+                     final Callback onResult) {
         if (maskString == null) {
             onResult.invoke(inputValue);
             return;
         }
-        final Mask mask = new Mask(maskString);
-        final String input = inputValue;
-        final Mask.Result result = mask.apply(new CaretString(input, input.length()), true);
-        final String output = result.getExtractedValue();
-        onResult.invoke(output);
+      final Mask mask = new Mask(maskString);
+      final String input = inputValue;
+      final Mask.Result result = mask.apply(
+          new CaretString(
+              input,
+              input.length()
+          ),
+          true
+      );
+      final String output = result.getExtractedValue();
+      onResult.invoke(output);
     }
 
     @ReactMethod
     public void setMask(final int view, final String mask) {
-        final Activity currentActivity = this.reactContext.getCurrentActivity();
-        final ReactApplicationContext rctx = this.reactContext;
+      final Activity currentActivity = this.reactContext.getCurrentActivity();
+      final ReactApplicationContext rctx = this.reactContext;
 
-        currentActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                UIManagerModule uiManager = rctx.getNativeModule(UIManagerModule.class);
-                uiManager.addUIBlock(new UIBlock() {
-                    @Override
-                    public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
-                        EditText editText = (EditText) nativeViewHierarchyManager.resolveView(view);
+      currentActivity.runOnUiThread(new Runnable() {
+        @Override
+        public void run() {
+          UIManagerModule uiManager = rctx.getNativeModule(UIManagerModule.class);
+          uiManager.addUIBlock(new UIBlock() {
+              @Override
+              public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                  EditText editText = (EditText)nativeViewHierarchyManager.resolveView(view);
 
-                        final MaskedTextChangedListener listener = new MaskedTextChangedListener(mask, true, editText,
-                                null, new MaskedTextChangedListener.ValueListener() {
-                                    @Override
-                                    public void onTextChanged(boolean maskFilled,
-                                            @NonNull final String extractedValue) {
-                                    }
-                                });
-
-                        editText.addTextChangedListener(listener);
+                  final MaskedTextChangedListener listener = new MaskedTextChangedListener(
+                    mask,
+                    true,
+                    editText,
+                    null,
+                    new MaskedTextChangedListener.ValueListener() {
+                        @Override
+                        public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue) {
+                        }
                     }
-                });
-            }
-        });
+                  );
+
+                  if (editText.getTag() != null) {
+                      editText.removeTextChangedListener((TextWatcher) editText.getTag());
+                  }
+                  editText.setTag(listener);
+
+                  editText.addTextChangedListener(listener);
+              }
+          });
+        }
+      });
     }
 }
